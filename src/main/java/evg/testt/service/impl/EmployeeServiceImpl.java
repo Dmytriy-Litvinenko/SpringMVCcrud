@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl extends BaseService<Employee, EmployeeDao> implements EmployeeService {
 
-    public List<Employee> getByDepartment(Department department){return dao.findByDepartment(department);}
+   // public List<Employee> getByDepartment(Department department){return dao.findByDepartment(department);}
 
     /*public List<Employee> getByDepartment(Integer id){
         return dao.findByDepartment(Department.newBuilder().setId(id).build());
