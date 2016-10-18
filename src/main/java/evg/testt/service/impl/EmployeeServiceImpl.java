@@ -16,4 +16,7 @@ public class EmployeeServiceImpl extends BaseService<Employee, EmployeeDao> impl
     /*public List<Employee> getByDepartment(Integer id){
         return dao.findByDepartment(Department.newBuilder().setId(id).build());
     }//*/
+    public Employee getByEmail(String email){
+        return dao.findByEmail(email);
+    }
 }

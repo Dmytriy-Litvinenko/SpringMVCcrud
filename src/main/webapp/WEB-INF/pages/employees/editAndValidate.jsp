@@ -28,6 +28,12 @@
             <td></td>
         </tr>
         <tr>
+            <td>Email:</td>
+            <td><form:input path="email"/></td>
+            <td><form:errors path="email" cssClass="error"/></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>
                 <input type="hidden" name="department_id" value="${department_id}"/>
                 <input type="submit" />

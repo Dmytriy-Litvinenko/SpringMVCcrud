@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EmployeeDao extends JpaRepository<Employee, Integer> {
-    //List<Employee> findByDepartmentId(Integer integer);
-    List<Employee> findByDepartment(Department department);
+    //List<Employee> findByDepartment(Department department);
+    Employee findByEmail(String email);
 }

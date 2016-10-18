@@ -1,6 +1,9 @@
 package evg.testt.model;
 
+import evg.testt.util.validation.Unique;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +18,16 @@ public class Employee extends BaseModel{
     @NotBlank(message="Employee cannot have empty name!")
     //@Size(min = 3, message = "your name cannot be shorter than 3 symbols")
     private String firstName;
+
     @NotBlank(message="Employee cannot have empty surname!")
     private String secondName;
+
+
+
+    @NotEmpty(message = "Email cannot be empty!")
+    @Unique(message = "This email is already in use!")
+    @Email(message = "Input valid email, please!")
+    private String email;
 
     @ManyToOne//(fetch= FetchType.LAZY)
     @JoinColumn(name = "department_id")
@@ -42,6 +53,8 @@ public class Employee extends BaseModel{
         this.department = department;
     }
 
+    public String getEmail() {return email;}
+    public void setEmail(String email) {this.email = email;}
     /*@Override
     public int hashCode() {
         if (this.getId()==null){

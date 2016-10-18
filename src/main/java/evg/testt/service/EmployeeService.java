@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface EmployeeService extends Service<Employee> {
     //List<Employee> getByDepartment(Department department);
+    Employee getByEmail(String email);
 }
