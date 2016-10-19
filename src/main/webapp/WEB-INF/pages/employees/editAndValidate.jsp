@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title></title>
@@ -16,10 +17,14 @@
 <form:form method="post"  commandName="employee" >
     <table>
         <tr>
+            <td>Id:</td>
+            <td><form:input  path="id" /></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>FirstName:</td>
             <td><form:input  path="firstName" /></td>
             <td><form:errors path="firstName" cssClass="error"/></td>
-                <%--form:input path="firstName" action="/empSaveAfterValidation" /--%>
         </tr>
         <tr>
             <td>SecondName:</td>
@@ -30,7 +35,14 @@
         <tr>
             <td>Email:</td>
             <td><form:input path="email"/></td>
-            <td><form:errors path="email" cssClass="error"/></td>
+            <%--c:if test="${employee.id!=null}">
+            <td>${employee.id}</td>
+            </c:if--%>
+            <td>
+                <form:errors path="email" cssClass="error"/>
+            </td>
+
+
             <td></td>
         </tr>
         <tr>

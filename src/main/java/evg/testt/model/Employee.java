@@ -16,25 +16,20 @@ import javax.validation.constraints.Size;
 public class Employee extends BaseModel{
 
     @NotBlank(message="Employee cannot have empty name!")
-    //@Size(min = 3, message = "your name cannot be shorter than 3 symbols")
+    @Size(min = 3, message = "your name cannot be shorter than 3 symbols")
     private String firstName;
 
     @NotBlank(message="Employee cannot have empty surname!")
     private String secondName;
 
-
-
     @NotEmpty(message = "Email cannot be empty!")
-    @Unique(message = "This email is already in use!")
+    //@Unique(message = "This email is already in use!")
     @Email(message = "Input valid email, please!")
     private String email;
 
     @ManyToOne//(fetch= FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
-
-
-
 
     public String getFirstName() {return firstName;    }
     public void setFirstName(String firstName) {this.firstName = firstName;}

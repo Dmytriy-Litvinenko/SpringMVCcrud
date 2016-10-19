@@ -112,9 +112,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employeeDelete", method = RequestMethod.GET)
-    //@ResponseBody
     public String deleteEmployee(@RequestParam(required = true) Integer id) {
-        //List list= new LinkedList<Integer>();
         Integer departmentId=null;
         Employee employee=null;
         try {
@@ -126,56 +124,53 @@ public class EmployeeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //return "idemp = "+employee.getId()+", id_dep ="+departmentId;
         return "redirect:/emp?id="+departmentId;
     }
 
 
     @RequestMapping(value = "/empAddAndValidate", method = RequestMethod.GET)
-    public ModelAndView showAdd(@RequestParam(required = true) Integer department_id
-            //,Model model
-    )  {
-        //ModelAndView modelAndView=new ModelAndView(JspPath.EMPLOYEE_ADD_AND_VALIDATE);
+    public ModelAndView createEditEmployeeForm(
+            @RequestParam(required = false) Integer employee_id,
+            @RequestParam(required = false) Integer department_id)  {
         ModelAndView modelAndView=new ModelAndView(JspPath.EMPLOYEE_ADD_AND_VALIDATE);
-                /*Department department= null;
-        try {
-            department = departmentService.getById(department_id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-        Employee employee=new Employee();
-        //employee.setDepartment(department);
-        //
-        //model.addAttribute(employee);//.addAttribute("employee",employee);
-        //model.addAttribute("department_id",department_id);//.addObject();
+        Employee employee=null;
+        if (employee_id==null){
+            employee=new Employee();
+        }else{
+            try {
+                employee=employeeService.getById(employee_id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(department_id==null){
+            department_id=employee.getDepartment().getId();
+        }
         modelAndView.addObject(employee);
         modelAndView.addObject("department_id",department_id);
         return modelAndView;
-        //return ""+employee.getId();
     }
 
     @RequestMapping(value = "/empAddAndValidate", method = RequestMethod.POST)//value = "/empSaveAfterValidation"
-    //@ResponseBody
-    public String addAndValidateNewOne(@RequestParam(required = true) Integer department_id,
-                                       @Valid Employee employee,BindingResult result  // atedresult@ModelAttribute("employee")
-            /*@RequestParam(required = true) String firstName,
-            @RequestParam(required = true) String secondName,*/
-                                       ////
-    ) {
-        if(result.hasErrors()){
-            //return "redirect:/empAddAndValidate?department_id="+department_id;
-           return JspPath.EMPLOYEE_ADD_AND_VALIDATE;//?id="+employee.getDepartment().getId();
-        }
-        Department department= null;
+     public String addAndValidateNewOne(
+            @RequestParam(required = true) Integer department_id, @Valid Employee employee, BindingResult result) {
+            if (result.hasErrors()) {
+                return JspPath.EMPLOYEE_ADD_AND_VALIDATE;
+            }
+        Department department;
         try {
             department = departmentService.getById(department_id);
             employee.setDepartment(department);
-            employeeService.insert(employee);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/emp?id="+department_id;
+        } catch (SQLException e) {e.printStackTrace();}
 
-        // return "ok, depName="+employee.getFirstName()+", result = "+result.hasErrors();
+        try {
+            if(employee.getId()!=null){
+                employeeService.update(employee);
+            }else{
+                employeeService.insert(employee);
+            }
+        } catch (SQLException e) {e.printStackTrace();}
+        return "redirect:/emp?id="+department_id;
     }
+
 }

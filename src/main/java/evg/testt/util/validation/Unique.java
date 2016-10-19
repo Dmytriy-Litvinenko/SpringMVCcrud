@@ -11,6 +11,8 @@ import java.lang.annotation.*;
 @Documented
 public @interface Unique {
 
+    //int idValidate() ;
+
     String message() default "{email}";
 
     Class<?>[] groups() default { };

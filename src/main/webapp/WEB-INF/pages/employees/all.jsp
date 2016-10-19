@@ -15,8 +15,14 @@
         <tr>
             <td>${employee.firstName}</td>
             <td>${employee.secondName}</td>
-            <td><a href="/empAdd?id=${employee.id}">Edit</a> |
-                <a href="/employeeDelete?id=${employee.id}">Delete</a>
+            <td>
+                <%--form method="post" action="/employeeDelete">
+                    <input type="hidden" name="id" value=${employee.id}>
+                    <input type="hidden" name="department_id" value=${department.id}>
+                    <input type="submit" value="Delete">
+                </form--%>
+                <a href="/empAddAndValidate?employee_id=${employee.id}">Edit</a>
+                |<a href="/employeeDelete?id=${employee.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
